@@ -45,8 +45,8 @@ Real-time, **UPSERT-only** change data capture from a MySQL (AWS RDS) binlog int
 ## Quick start
 
 ```bash
-git clone <your-repo-url>
-cd <your-repo>
+git clone Implementing-Schema-Aware-Flink-CDC-from-MySQL-to-PostgreSQL-ETL
+cd Implementing-Schema-Aware-Flink-CDC-from-MySQL-to-PostgreSQL-ETL
 
 # 1. Put the drivers in ./drivers (any version suffix works)
 #    flink-sql-connector-mysql-cdc-<ver>.jar
@@ -76,13 +76,13 @@ All settings are environment variables (from `.env`, which `docker-compose.yml` 
 | `MYSQL_SERVER_TZ` | no | `UTC` | Must match the MySQL/RDS server time zone, otherwise `TIMESTAMP` values shift. Formats like `UTC+5` are normalised. |
 | `MYSQL_TABLES` | one of | – | Comma-separated tables to capture. |
 | `ALLOW_ALL_TABLES` | one of | `false` | Set `true` to capture every base table with a primary key when `MYSQL_TABLES` is empty. |
-| `MYSQL_SERVER_ID_BASE` | no | `5400` | First binlog `server-id`; each table uses base, base+1, ... Must be unique across all binlog clients of the server. |
+| `MYSQL_SERVER_ID_BASE` | no | `5400` | First binlog `server-id`; each table uses base, base+1, ... Must be unique across all binlog clients of the server.(But it's optional) |
 | `PG_HOST`, `PG_USER`, `PG_PASSWORD`, `PG_DATABASE` | yes | – | Warehouse database. |
 | `PG_PORT` | no | `5432` | |
 | `PG_SCHEMA` | no | `warehouse` | Schema containing the target tables. |
 | `DB_ID` | no | `2` | Value written to `"dbId"` for every row from this source. |
-| `CDC_JAR`, `MYSQL_JDBC_JAR` | no | `/opt/flink/usrlib/...` | Set in the image and compose file; override only if you move the JARs. |
-| `SCHEMA_SNAPSHOT_PATH`, `CHECKPOINT_DIR` | no | `/data/...` | Persisted in the `cdc-data` volume. |
+| `CDC_JAR`, `MYSQL_JDBC_JAR` | no | `/opt/flink/usrlib/...` | Set in the image and compose file; override only if you move the JARs.(But it's optional) |
+| `SCHEMA_SNAPSHOT_PATH`, `CHECKPOINT_DIR` | no | `/data/...` | Persisted in the `cdc-data` volume.(But it's optional) |
 
 ## Value handling
 
