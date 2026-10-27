@@ -1,0 +1,22 @@
+services:
+  mysql-pg-cdc:
+    build: .
+    image: mysql-flink-cdc:latest
+    container_name: mysql-flink-cdc
+    env_file: .env
+    environment:
+      # Overrides baked into the image, kept explicit for clarity
+      CDC_JAR: /opt/flink/usrlib/flink-sql-connector-mysql-cdc.jar
+      MYSQL_JDBC_JAR: /opt/flink/usrlib/mysql-connector-j.jar
+      SCHEMA_SNAPSHOT_PATH: /data/schema_snapshot.json
+      CHECKPOINT_DIR: file:///data/checkpoints
+    # Keep the job in the foreground so compose restart: unless-stopped actually restarts it.
+    volumes:
+      - cdc-data:/data
+    restart: unless-stopped
+    # Only needed if MySQL/Postgres run on the Docker host itself:
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+
+volumes:
+  cdc-data:
