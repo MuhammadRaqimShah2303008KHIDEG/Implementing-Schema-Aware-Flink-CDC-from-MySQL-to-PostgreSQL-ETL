@@ -3,7 +3,8 @@
 
 Real-time, **UPSERT-only** change data capture from a MySQL (AWS RDS) binlog into an existing PostgreSQL warehouse, built with **Apache Flink CDC** and **PyFlink**, packaged as a single Docker container.
 
-![Architecture](docs/architecture.svg)
+<img width="1573" height="1109" alt="Architecture" src="https://github.com/user-attachments/assets/067ce2be-a8e9-4e31-9ff0-5012bbc70661" />
+
 
 ## Highlights
 
